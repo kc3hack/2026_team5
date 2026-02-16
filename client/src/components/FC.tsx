@@ -57,12 +57,13 @@ export default function FlowEditor() {
     const newNode = {
       id: Math.random().toString(),
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: 'New Node' },
+      data: { label: '名称未設定のノード' },
     };
     setNodes((nds) => nds.concat(newNode));
   };
 
   return (
+    <>
     <div style={{ width: '50vw', height: '60vh' }}>
       
       <div style={{ padding: '15px', background: '#f0f0f0', display: 'flex', gap: '20px', alignItems: 'center', borderBottom: '1px solid #ccc' }}>
@@ -99,5 +100,6 @@ export default function FlowEditor() {
         <Background gap={12} size={1} />
       </ReactFlow>
     </div>
+    </>
   );
 }

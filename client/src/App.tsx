@@ -5,6 +5,7 @@ import Signin from './pages/Signin'
 import CreateFC from './pages/CreateFC'
 import ViewFC from './pages/ViewFC'
 import ViewLargeFC from './pages/ViewLargeFC'
+import Config from './pages/Config'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path = '/create' element={<CreateFC />} />
       <Route path = '/view' element={<ViewFC />} />
       <Route path = '/view-details' element={<ViewLargeFC />} />
+      <Route path = '/config' element={<Config />} />
 
 
     </Routes>

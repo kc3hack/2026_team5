@@ -1,16 +1,22 @@
-import { Link } from "react-router-dom";
-import FlowEditor from "../commponents/FC";
+import FlowEditor from "../components/FC";
+import DecideButton from "../components/DecideButton";
+import Tooltip from '@mui/material/Tooltip';
+import ChangePage from "../components/ChangePage";
 
 function CreateFC():any {
   return (
     <>
     <h1>フローチャートを作る画面</h1>
     <FlowEditor />
-    <Link to="/create">Go to create\n</Link>
-    <Link to="/view">Go to View\n</Link>
-    <Link to="/view-details">Go to detail</Link>
-
-  
+    <Tooltip title="ボタンを押して投稿" placement="top">
+    <div style={{ position:'fixed',
+     bottom: '20px' ,
+        right: '20px' ,
+    }}>
+    <DecideButton />
+    </div>
+    </Tooltip>
+    <ChangePage />
     </>
   )
 }

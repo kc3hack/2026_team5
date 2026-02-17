@@ -6,10 +6,20 @@ import CreateFC from './pages/CreateFC'
 import ViewFC from './pages/ViewFC'
 import ViewLargeFC from './pages/ViewLargeFC'
 import Config from './pages/Config'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
+
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: "#0B1026"
+      }
+    }
+  });
   return (
-    <>   
+    <>  
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<Navigate to="/login" replace />} />
@@ -23,6 +33,12 @@ function App() {
 
     </Routes>
     </BrowserRouter>
+
+    <ThemeProvider theme={theme}>
+      <CssBaseline /> {/* ★これを置くと、bodyの色が自動で変わる */}
+      
+      {/* ここから中身 */}
+    </ThemeProvider>
     </>
   )
 }

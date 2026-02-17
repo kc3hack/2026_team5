@@ -32,13 +32,23 @@ export default function ChangePage() {
         }, [location.pathname]);
 
 return (
-    <Box sx={{pb: 7 }}>
+    <Box sx={{pb: 7, bgcolor: '#ffffff'}}>
 
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100 }} elevation={3}>
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 100, bgcolor: "#ffffff"/*,borderTop: '1px solid rgba(255, 255, 255, 0.2)', */}} >
       <BottomNavigation
         showLabels
         onChange={(_event, newValue) => {
           setValue(newValue);
+        }}
+        sx={{
+            bgcolor: '#0B1026', 
+            
+            '& .MuiBottomNavigationAction-root': {
+                color: '#888888', 
+            },
+            '& .Mui-selected': { 
+                color: '#ffffff !important', 
+            }
         }}
         value={value}
       >

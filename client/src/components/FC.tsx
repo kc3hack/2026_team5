@@ -3,34 +3,31 @@ import ReactFlow, {
   MiniMap,
   Controls,
   Background,
-  useNodesState,
-  useEdgesState,
   addEdge,
   type Connection,
   type Edge,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: 'Start' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: 'sample' } },
-];
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
-
-export default function FlowEditor() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+export default function FlowEditor({
+  nodes,
+  edges,
+  onNodesChange,
+  onEdgesChange,
+  setNodes,
+  setEdges
+}: any) {
 
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   
   const [nodeName, setNodeName] = useState("");
 
   const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Edge | Connection) => setEdges((eds: any) => addEdge(params, eds)),
     [setEdges],
   );
 
-  const onNodeClick = (event: React.MouseEvent, node: any) => {
+  const onNodeClick = (_event: React.MouseEvent, node: any) => {
     setSelectedNodeId(node.id); 
     setNodeName(node.data.label);
   };
@@ -39,7 +36,7 @@ export default function FlowEditor() {
     const newName = e.target.value;
     setNodeName(newName); 
 
-    setNodes((nds) =>
+    setNodes((nds: any[]) =>
       nds.map((node) => {
         if (node.id === selectedNodeId) {
           return {
@@ -58,13 +55,13 @@ export default function FlowEditor() {
       position: { x: Math.random() * 200, y: Math.random() * 200 },
       data: { label: '名称未設定のノード' },
     };
-    setNodes((nds) => nds.concat(newNode));
+    setNodes((nds: any[]) => nds.concat(newNode));
   };
 
   const addBranch = (label: string) => {
     if (!selectedNodeId) return;
 
-    const parentNode = nodes.find((n) => n.id === selectedNodeId);
+    const parentNode = nodes.find((n: any) => n.id === selectedNodeId);
     if (!parentNode) return;
 
     const newNodeId = Math.random().toString();
@@ -87,8 +84,8 @@ export default function FlowEditor() {
       style: { stroke: isYes ? '#4caf50' : '#f44336' } 
     };
 
-    setNodes((nds) => nds.concat(newNode));
-    setEdges((eds) => eds.concat(newEdge));
+    setNodes((nds: any[]) => nds.concat(newNode));
+    setEdges((eds: any[]) => eds.concat(newEdge));
   };
 
   const addYes = () => addBranch('Yes');

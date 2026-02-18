@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNodesState, useEdgesState } from 'reactflow';
 import FlowEditor from "../components/FC";
 import Tooltip from '@mui/material/Tooltip';
 import ChangePage from "../components/ChangePage";
@@ -7,20 +8,30 @@ import UploadIcon from '@mui/icons-material/Upload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HelpIcon from '@mui/icons-material/HelpOutline';
 import PhotoIcon from '@mui/icons-material/ArrowCircleDown';
-import {  Paper, Typography } from "@mui/material";
+import { Paper, Typography, TextField, Box } from "@mui/material";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Stack from '@mui/material/Stack';
+import { motion } from 'framer-motion';
 
 function CreateFC(): any {
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
   const [resetKey, setResetKey] = useState(0);
+  
   const handleReset = () => {
     setResetKey(prev => prev + 1);
+    setNodes([]);
+    setEdges([]);
+    setTitle("");
+    setDescription("");
   };
-
   const [open, setOpen] = useState(false);
   
   const handleClickOpen = () => {
@@ -32,37 +43,58 @@ function CreateFC(): any {
 
   return (
     <>
- <Typography
-  variant="h1"
-  sx={{
-  
-    fontFamily: '"M PLUS Rounded 1c", sans-serif',
-    fontWeight: 700, 
-    
- 
-    fontSize: { xs: '1.5rem', md: '2rem' },
-    
- 
-    color: 'rgba(255, 255, 255, 0.6)',
-    
-    mt: 0, mb: 1, 
-    
-    
-    width: '65vw',
-    mx: 'auto',
-    textAlign: 'left',
-    transform: 'translateX(-55px)', 
-  }}
->
-  Create  a Flowchart
-</Typography>
+      <Typography
+        variant="h1"
+        sx={{
+          fontFamily: '"M PLUS Rounded 1c", sans-serif',
+          fontWeight: 700, 
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          color: 'rgba(255, 255, 255, 0.6)',
+          mt: 0, mb: 1, 
+          width: '65vw',
+          mx: 'auto',
+          textAlign: 'left',
+          transform: 'translateX(-55px)', 
+        }}
+       
+      >
+        Create a Flowchart
+      </Typography>
+
+      <Box sx={{ width: '65vw', mx: 'auto', mb: 2, display: 'flex', gap: 2 }}>
+        <TextField
+          placeholder="Title"
+          variant="standard"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          sx={{ flex: 1, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'rgba(255,255,255,0.3)' } }}
+        />
+        <TextField
+          placeholder="Description"
+          variant="standard"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          sx={{ flex: 2, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'rgba(255,255,255,0.3)' } }}
+        />
+      </Box>
+
       <Paper elevation={3} sx={{ mb: -4, borderRadius: '16px', overflow: 'hidden' }}>
       
-        <FlowEditor key={resetKey} />
+        <FlowEditor 
+          key={resetKey}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          setNodes={setNodes}
+          setEdges={setEdges}
+        />
 
         <Stack direction="row" spacing={2} sx={{ position: 'fixed', bottom: 100, left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000 }}>
           <Tooltip title="ボタンを押して投稿" placement="top">
-            <Fab variant="extended" color="info" aria-label="add">
+            <Fab variant="extended" color="info" aria-label="add"  component={motion.div}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1 }}>
               <UploadIcon sx={{ mr: 1 }} />
               submit
             </Fab>
@@ -74,6 +106,10 @@ function CreateFC(): any {
               color="error" 
               aria-label="add" 
               onClick={handleReset}
+              component={motion.div}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1 }}
+
             >
               <DeleteIcon sx={{ mr: 1 }} />
               delete
@@ -81,14 +117,18 @@ function CreateFC(): any {
           </Tooltip>
 
           <Tooltip title="操作のhelpを表示" placement="top">
-            <Fab variant="extended" color="success" aria-label="add" onClick={handleClickOpen}>
+            <Fab variant="extended" color="success" aria-label="add" onClick={handleClickOpen} component={motion.div}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1 }}>
               <HelpIcon sx={{ mr: 1 }} />
               manual
             </Fab>
           </Tooltip>
           
           <Tooltip title="フローチャートを撮影(未実装)" placement="top">
-            <Fab variant="extended" color="default" aria-label="add">
+            <Fab variant="extended" color="default" aria-label="add" component={motion.div}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1 }}>
               <PhotoIcon sx={{ mr: 1 }} />
               download
             </Fab>

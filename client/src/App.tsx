@@ -8,6 +8,8 @@ import ViewLargeFC from './pages/ViewLargeFC'
 import Config from './pages/Config'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import  Home  from './pages/home';
+
 
 function App() {
 
@@ -22,7 +24,7 @@ function App() {
     <>  
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<Navigate to="/login" replace />} />
+    <Route path="/" element={<Home />} />
       <Route path = '/login' element={<Login />} />
       <Route path = '/signin' element={<Signin />} />
       <Route path = '/create' element={<CreateFC />} />

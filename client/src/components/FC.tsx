@@ -9,7 +9,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-export default function FlowEditor({
+export default function FC({
   nodes,
   edges,
   onNodesChange,

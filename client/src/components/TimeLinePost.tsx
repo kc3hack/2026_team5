@@ -1,0 +1,52 @@
+import { Paper, Typography, Box, Avatar } from "@mui/material";
+import ViewFC from "./ForViewFC";
+
+
+// 仮置きのためAIが生成したものを丸ごと使ってます
+// データの方（型定義）
+// ※あとでサーバーから受け取るデータと同じ形にしておくと楽です
+type PostProps = {
+  username: string;
+  title: string;
+  description: string;
+  date: string;
+};
+
+const TimelinePost = ({ username, title, description, date }: PostProps) => {
+  return (
+    <Paper 
+      elevation={3} 
+      sx={{ 
+        p: 10, 
+        mb: 5, 
+        borderRadius: '20px',
+        bgcolor: 'rgba(255, 255, 255, 0.9)' 
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+        <Avatar sx={{ bgcolor: '#1976d2', mr: 2 }}>{username[0]}</Avatar>
+        <Box>
+          <Typography variant="subtitle1" fontWeight="bold">
+            {username}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            {date}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Typography variant="h5" fontWeight="bold" sx={{ mt: 1, mb: 1 }}>
+        {title}
+      </Typography>
+      <Typography variant="body1" color="text.secondary">
+        {description}
+      </Typography>
+
+      <Box sx={{ mt: 2, height: '400px', bgcolor: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
+        <ViewFC />
+      </Box>
+    </Paper>
+  );
+};
+
+export default TimelinePost;

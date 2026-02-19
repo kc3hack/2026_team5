@@ -85,7 +85,7 @@ function Home():any {
         }}
        
       >
-        <Link to="/view" style={{ 
+        <Link to="/view" target ='_blank' style={{ 
                 textDecoration: 'none', 
                 color: 'inherit'  
             }}>-View</Link >

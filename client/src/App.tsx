@@ -22,6 +22,7 @@ function App() {
   });
   return (
     <>  
+     <ThemeProvider theme={theme}>
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<Home />} />
@@ -36,10 +37,10 @@ function App() {
     </Routes>
     </BrowserRouter>
 
-    <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* ★これを置くと、bodyの色が自動で変わる */}
+
+      <CssBaseline /> 
       
-      {/* ここから中身 */}
+   
     </ThemeProvider>
     </>
   )

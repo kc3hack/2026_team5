@@ -16,6 +16,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Stack from '@mui/material/Stack';
 import { motion } from 'framer-motion';
+import { apiClient } from '../api/client';
 
 function CreateFC(): any {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -32,6 +33,7 @@ function CreateFC(): any {
     setTitle("");
     setDescription("");
   };
+
   const [open, setOpen] = useState(false);
   
   const handleClickOpen = () => {
@@ -40,6 +42,33 @@ function CreateFC(): any {
   const handleClose = () => {
     setOpen(false);
   }
+
+  const handleSave = async () => {
+    if (!title) {
+      alert("タイトルを入力してください！");
+      return;
+    }
+
+    try {
+      const payload = {
+        title: title,
+        description: description,
+        flow_data: {
+          nodes: nodes,
+          edges: edges
+        }
+      };
+
+      const response = await apiClient.post('/api/flowcharts', payload);
+      
+      if (response.status === 200 || response.status === 201) {
+        alert('フローチャートを保存しました！');
+      }
+    } catch (error) {
+      console.error('保存エラー:', error);
+      alert('バックエンドと通信できませんでした。サーバーが動いているか確認してください。');
+    }
+  };
 
   return (
     <>
@@ -92,9 +121,16 @@ function CreateFC(): any {
 
         <Stack direction="row" spacing={2} sx={{ position: 'fixed', bottom: 100, left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000 }}>
           <Tooltip title="ボタンを押して投稿" placement="top">
-            <Fab variant="extended" color="info" aria-label="add"  component={motion.div}
+            {/* ★追加3：onClick={handleSave} を追加してボタンと繋げた！ */}
+            <Fab 
+              variant="extended" 
+              color="info" 
+              aria-label="add"  
+              component={motion.div}
               whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 1 }}>
+              whileTap={{ scale: 1 }}
+              onClick={handleSave} 
+            >
               <UploadIcon sx={{ mr: 1 }} />
               submit
             </Fab>
@@ -143,6 +179,7 @@ function CreateFC(): any {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+        {/* ... (Dialogの中身は全く変えていません) ... */}
         <DialogTitle id="alert-dialog-title">
           {"操作方法"}
         </DialogTitle>
@@ -151,25 +188,15 @@ function CreateFC(): any {
           <ul style={{ paddingLeft: '20px', lineHeight: '2.0', margin: 0 }}>
       
       <li><b>ノードの追加：</b>画面上部の「Add Node」ボタンをクリックして、ノードを追加します。</li>
-      
       <li><b>ノードの削除：</b>削除したいノードをクリックして選択し、キーボードの「Delete」キーを押すと、選択したノードが削除されます。</li>
-      
       <li><b>ノードの移動：</b>ノードをクリックしてドラッグすることで、ノードの位置を変更できます。</li>
-      
       <li><b>ノードの編集：</b>ノードをダブルクリックすると、ノードの内容を編集できます。</li>
-      
       <li><b>ノードの接続：</b>ノードの端にある小さな円をドラッグして、他のノードの端にドロップすることで、ノード同士を接続できます。</li>
-      
       <li><b>YES,NOの追加：</b>ノードを選択した状態でYESを追加ボタンを押すと、YESの線のついたノードが生成されます。NOも同様です。</li>
-      
       <hr style={{ margin: '10px 0', border: 'none', borderTop: '1px solid #eee' }} /> 
-
       <li><b>フローチャートの保存：</b>画面左下の「submit」ボタンをクリックして、現在のフローチャートを保存します。</li>
-      
       <li><b>フローチャートの削除：</b>画面左下の「delete」ボタンをクリックして、現在のフローチャートを全て削除します。</li>
-      
       <li><b>フローチャートのダウンロード：</b>画面右下の「download」ボタンをクリックして、現在のフローチャートを画像としてダウンロードします。</li>
-      
       <li><b>操作方法の表示：</b>画面右下の「manual」ボタンをクリックして、フローチャートの操作方法を表示します。</li>
 
     </ul>

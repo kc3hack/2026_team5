@@ -32,8 +32,8 @@ export default function FC({
     setNodeName(node.data.label);
   };
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = e.target.value;
+  const handleChangeName = (_e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = _e.target.value;
     setNodeName(newName); 
 
     setNodes((nds: any[]) =>

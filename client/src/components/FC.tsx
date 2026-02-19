@@ -27,13 +27,15 @@ export default function FC({
     [setEdges],
   );
 
-  const onNodeClick = (_event: React.MouseEvent, node: any) => {
+  const onNodeClick = (event: React.MouseEvent, node: any) => {
     setSelectedNodeId(node.id); 
     setNodeName(node.data.label);
+    console.log(event);
   };
 
-  const handleChangeName = (_e: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = _e.target.value;
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = e.target.value;
+    console.log(e);
     setNodeName(newName); 
 
     setNodes((nds: any[]) =>

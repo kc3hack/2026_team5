@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import TimelinePost from "../components/TimeLinePost";
 import ChangePage from "../components/ChangePage";
@@ -6,6 +6,7 @@ import { apiClient } from "../api/client";
 
 function Timeline() {
   const [posts, setPosts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -14,6 +15,8 @@ function Timeline() {
         setPosts(response.data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -40,17 +43,22 @@ function Timeline() {
       </Typography>
 
       <Box sx={{ width: '100%', maxWidth: '800px', mx: 'auto', p: 2 }}>
-
-        {posts.map((post) => (
-          <TimelinePost
-            key={post.id}
-            username={"User"} // バックエンドにusernameをまだ保存していないため仮
-            title={post.title}
-            description={post.description || ""}
-            date={new Date(post.created_at).toLocaleString('ja-JP')} // UTC時間を日本時間に変換
-            flow_data={post.flow_data}
-          />
-        ))}
+        {isLoading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
+            <CircularProgress sx={{ color: 'rgba(255, 255, 255, 0.6)' }} />
+          </Box>
+        ) : (
+          posts.map((post) => (
+            <TimelinePost
+              key={post.id}
+              username={"User"} // バックエンドにusernameをまだ保存していないため仮
+              title={post.title}
+              description={post.description || ""}
+              date={new Date(post.created_at).toLocaleString('ja-JP')} // UTC時間を日本時間に変換
+              flow_data={post.flow_data}
+            />
+          ))
+        )}
         <ChangePage />
       </Box>
     </>

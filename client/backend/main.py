@@ -9,8 +9,8 @@ app = FastAPI()
 
 # --- Supabase設定 ---
 # 本来は .env ファイルから読み込むのがベストです
-SUPABASE_URL = "あなたのSUPABASE_URL"
-SUPABASE_KEY = "あなたのSUPABASE_ANON_KEY"
+SUPABASE_URL = "https://iileunhhlrkocdljrvbx.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpbGV1bmhobHJrb2NkbGpydmJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1NTU4MjMsImV4cCI6MjA4NzEzMTgyM30.HFli5HYv44z9LcQq_93-XxxaH42d_mzKSKNxVfRkRLI"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # --- CORS設定 ---

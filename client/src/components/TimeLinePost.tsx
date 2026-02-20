@@ -15,20 +15,24 @@ type PostProps = {
   title: string;
   description: string;
   date: string;
+  flow_data: any; // 追加: フローチャートの基本データ
 };
 
-const TimelinePost = ({ username, title, description, date }: PostProps) => {
+const TimelinePost = ({ username, title, description, date, flow_data }: PostProps) => {
   const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
 
+  // ReactFlowに渡すためにノードとエッジを取り出す。無い場合は空配列
+  const nodes = flow_data?.nodes || [];
+  const edges = flow_data?.edges || [];
 
   return (
-    <Paper 
-      elevation={3} 
-      sx={{ 
-        p: 10, 
-        mb: 5, 
+    <Paper
+      elevation={3}
+      sx={{
+        p: 10,
+        mb: 5,
         borderRadius: '20px',
-        bgcolor: 'rgba(255, 255, 255, 0.9)' 
+        bgcolor: 'rgba(255, 255, 255, 0.9)'
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -51,7 +55,7 @@ const TimelinePost = ({ username, title, description, date }: PostProps) => {
       </Typography>
 
       <Box sx={{ mt: 2, height: '400px', bgcolor: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
-        <ViewFC />
+        <ViewFC nodes={nodes} edges={edges} />
       </Box>
       <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
       <Checkbox

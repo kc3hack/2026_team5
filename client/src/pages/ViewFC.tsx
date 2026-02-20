@@ -1,66 +1,60 @@
 import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import TimelinePost from "../components/TimeLinePost";
 import ChangePage from "../components/ChangePage";
+import { apiClient } from "../api/client";
 
 function Timeline() {
+  const [posts, setPosts] = useState<any[]>([]);
 
-  const mockData = [
-    {
-      id: 1,
-      username: "Yosuke",
-      title: "初めてのフローチャート",
-      description: "テスト",
-      date: "2026/02/18 15:45"
-    },
-    {
-      id: 2,
-      username: "テスト",
-      title: "テスト",
-      description: "テスト",
-      date: "2026/02/19 12:30"
-    },
-    {
-      id: 3,
-      username: "Admin",
-      title: "テスト",
-      description: "テスト",
-      date: "2026/02/20 09:00"
-    },
-  ];
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await apiClient.get('/api/flowcharts');
+        setPosts(response.data);
+      } catch (error) {
+        console.error("データの取得に失敗しました", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
-    <> 
-     <Typography
-    
-    sx={{
-      fontFamily: '"M PLUS Rounded 1c", sans-serif',
-      fontWeight: 700, 
-      fontSize: { xs: '1.5rem', md: '2rem' },
-      color: 'rgba(255, 255, 255, 0.6)',
-      mt:3 , mb: 0, ml:1,
-      width: '65vw',
-      mx: 'auto',
-      textAlign: 'center',
-    }}
-   
-  >
-      View Flowcharts
-  </Typography>
+    <>
+      <Typography
 
-    <Box sx={{ width: '100%', maxWidth: '800px', mx: 'auto', p: 2 }}>
+        sx={{
+          fontFamily: '"M PLUS Rounded 1c", sans-serif',
+          fontWeight: 700,
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          color: 'rgba(255, 255, 255, 0.6)',
+          mt: 3, mb: 0, ml: 1,
+          width: '65vw',
+          mx: 'auto',
+          textAlign: 'center',
+        }}
 
-      {mockData.map((post) => (
-        <TimelinePost
-          key={post.id} 
-          username={post.username}
-          title={post.title}
-          description={post.description}
-          date={post.date} />
-      ))}
-      <ChangePage />
-    </Box>
+      >
+        View Flowcharts
+      </Typography>
+
+      <Box sx={{ width: '100%', maxWidth: '800px', mx: 'auto', p: 2 }}>
+
+        {posts.map((post) => (
+          <TimelinePost
+            key={post.id}
+            username={"User"} // バックエンドにusernameをまだ保存していないため仮
+            title={post.title}
+            description={post.description || ""}
+            date={new Date(post.created_at).toLocaleString('ja-JP')} // UTC時間を日本時間に変換
+            flow_data={post.flow_data}
+          />
+        ))}
+        <ChangePage />
+      </Box>
     </>
-    
+
   );
 }
 

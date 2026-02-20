@@ -1,4 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
+
+console.log("今のAPIの住所はこれだ！👉", import.meta.env.VITE_API_URL);
 
 // apiClient（専用の配達トラック）を作る
 export const apiClient = axios.create({

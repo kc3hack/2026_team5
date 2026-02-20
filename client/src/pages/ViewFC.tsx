@@ -4,9 +4,12 @@ import TimelinePost from "../components/TimeLinePost";
 import ChangePage from "../components/ChangePage";
 import { apiClient } from "../api/client";
 
+
+
 function Timeline() {
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,11 +28,13 @@ function Timeline() {
 
   return (
     <>
+
       <Typography
+
 
         sx={{
           fontFamily: '"M PLUS Rounded 1c", sans-serif',
-          fontWeight: 700,
+          fontWeight: "700",
           fontSize: { xs: '1.5rem', md: '2rem' },
           color: 'rgba(255, 255, 255, 0.6)',
           mt: 3, mb: 0, ml: 1,
@@ -51,6 +56,7 @@ function Timeline() {
           posts.map((post) => (
             <TimelinePost
               key={post.id}
+              id={post.id}
               username={"User"} // バックエンドにusernameをまだ保存していないため仮
               title={post.title}
               description={post.description || ""}

@@ -61,3 +61,17 @@ async def get_flowcharts():
         return response.data
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+@app.get("/api/flowcharts/{flow_id}")
+async def get_flowchart_by_id(flow_id: int):
+    try:
+        # IDを指定して1件だけ取得
+        response = supabase.table("flowcharts").select("*").eq("id", flow_id).execute()
+        
+        # データが見つからなかった場合
+        if not response.data:
+            raise HTTPException(status_code=404, detail="Flowchart not found")
+            
+        # リストの0番目（1件だけなので）を返す
+        return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

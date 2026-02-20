@@ -25,7 +25,7 @@ function CreateFC(): any {
   const [description, setDescription] = useState("");
 
   const [resetKey, setResetKey] = useState(0);
-  
+
   const handleReset = () => {
     setResetKey(prev => prev + 1);
     setNodes([]);
@@ -35,7 +35,7 @@ function CreateFC(): any {
   };
 
   const [open, setOpen] = useState(false);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -60,7 +60,7 @@ function CreateFC(): any {
       };
 
       const response = await apiClient.post('/api/flowcharts', payload);
-      
+
       if (response.status === 200 || response.status === 201) {
         alert('フローチャートを保存しました！');
       }
@@ -76,16 +76,16 @@ function CreateFC(): any {
         variant="h1"
         sx={{
           fontFamily: '"M PLUS Rounded 1c", sans-serif',
-          fontWeight: 700, 
+          fontWeight: 700,
           fontSize: { xs: '1.5rem', md: '2rem' },
           color: 'rgba(255, 255, 255, 0.6)',
-          mt: 0, mb: 1, 
+          mt: 0, mb: 1,
           width: '65vw',
           mx: 'auto',
           textAlign: 'left',
-          transform: 'translateX(-55px)', 
+          transform: 'translateX(-55px)',
         }}
-       
+
       >
         Create a Flowchart
       </Typography>
@@ -108,8 +108,8 @@ function CreateFC(): any {
       </Box>
 
       <Paper elevation={3} sx={{ mb: -4, borderRadius: '16px', overflow: 'hidden' }}>
-      
-        <FlowEditor 
+
+        <FlowEditor
           key={resetKey}
           nodes={nodes}
           edges={edges}
@@ -119,17 +119,17 @@ function CreateFC(): any {
           setEdges={setEdges}
         />
 
-        <Stack direction="row" spacing={2} sx={{ position: 'fixed', bottom: 100, left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000 }}>
+        <Stack direction="row" spacing={2} sx={{ position: 'fixed', left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000 }}>
           <Tooltip title="ボタンを押して投稿" placement="top">
             {/* ★追加3：onClick={handleSave} を追加してボタンと繋げた！ */}
-            <Fab 
-              variant="extended" 
-              color="info" 
-              aria-label="add"  
+            <Fab
+              variant="extended"
+              color="info"
+              aria-label="add"
               component={motion.div}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 1 }}
-              onClick={handleSave} 
+              onClick={handleSave}
             >
               <UploadIcon sx={{ mr: 1 }} />
               submit
@@ -137,10 +137,10 @@ function CreateFC(): any {
           </Tooltip>
 
           <Tooltip title="全て削除" placement="top">
-            <Fab 
-              variant="extended" 
-              color="error" 
-              aria-label="add" 
+            <Fab
+              variant="extended"
+              color="error"
+              aria-label="add"
               onClick={handleReset}
               component={motion.div}
               whileHover={{ scale: 1.1 }}
@@ -160,7 +160,7 @@ function CreateFC(): any {
               manual
             </Fab>
           </Tooltip>
-          
+
           <Tooltip title="フローチャートを撮影(未実装)" placement="top">
             <Fab variant="extended" color="default" aria-label="add" component={motion.div}
               whileHover={{ scale: 1.1 }}
@@ -172,40 +172,40 @@ function CreateFC(): any {
         </Stack>
 
         <Dialog
-        fullWidth
-        maxWidth="md"
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        {/* ... (Dialogの中身は全く変えていません) ... */}
-        <DialogTitle id="alert-dialog-title">
-          {"操作方法"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-          <ul style={{ paddingLeft: '20px', lineHeight: '2.0', margin: 0 }}>
-      
-      <li><b>ノードの追加：</b>画面上部の「Add Node」ボタンをクリックして、ノードを追加します。</li>
-      <li><b>ノードの削除：</b>削除したいノードをクリックして選択し、キーボードの「Delete」キーを押すと、選択したノードが削除されます。</li>
-      <li><b>ノードの移動：</b>ノードをクリックしてドラッグすることで、ノードの位置を変更できます。</li>
-      <li><b>ノードの編集：</b>ノードをダブルクリックすると、ノードの内容を編集できます。</li>
-      <li><b>ノードの接続：</b>ノードの端にある小さな円をドラッグして、他のノードの端にドロップすることで、ノード同士を接続できます。</li>
-      <li><b>YES,NOの追加：</b>ノードを選択した状態でYESを追加ボタンを押すと、YESの線のついたノードが生成されます。NOも同様です。</li>
-      <hr style={{ margin: '10px 0', border: 'none', borderTop: '1px solid #eee' }} /> 
-      <li><b>フローチャートの保存：</b>画面左下の「submit」ボタンをクリックして、現在のフローチャートを保存します。</li>
-      <li><b>フローチャートの削除：</b>画面左下の「delete」ボタンをクリックして、現在のフローチャートを全て削除します。</li>
-      <li><b>フローチャートのダウンロード：</b>画面右下の「download」ボタンをクリックして、現在のフローチャートを画像としてダウンロードします。</li>
-      <li><b>操作方法の表示：</b>画面右下の「manual」ボタンをクリックして、フローチャートの操作方法を表示します。</li>
+          fullWidth
+          maxWidth="md"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          {/* ... (Dialogの中身は全く変えていません) ... */}
+          <DialogTitle id="alert-dialog-title">
+            {"操作方法"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <ul style={{ paddingLeft: '20px', lineHeight: '2.0', margin: 0 }}>
 
-    </ul>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button onClick={handleClose}>閉じる</button>
-        </DialogActions>
-      </Dialog>
+                <li><b>ノードの追加：</b>画面上部の「Add Node」ボタンをクリックして、ノードを追加します。</li>
+                <li><b>ノードの削除：</b>削除したいノードをクリックして選択し、キーボードの「Delete」キーを押すと、選択したノードが削除されます。</li>
+                <li><b>ノードの移動：</b>ノードをクリックしてドラッグすることで、ノードの位置を変更できます。</li>
+                <li><b>ノードの編集：</b>ノードをダブルクリックすると、ノードの内容を編集できます。</li>
+                <li><b>ノードの接続：</b>ノードの端にある小さな円をドラッグして、他のノードの端にドロップすることで、ノード同士を接続できます。</li>
+                <li><b>YES,NOの追加：</b>ノードを選択した状態でYESを追加ボタンを押すと、YESの線のついたノードが生成されます。NOも同様です。</li>
+                <hr style={{ margin: '10px 0', border: 'none', borderTop: '1px solid #eee' }} />
+                <li><b>フローチャートの保存：</b>画面左下の「submit」ボタンをクリックして、現在のフローチャートを保存します。</li>
+                <li><b>フローチャートの削除：</b>画面左下の「delete」ボタンをクリックして、現在のフローチャートを全て削除します。</li>
+                <li><b>フローチャートのダウンロード：</b>画面右下の「download」ボタンをクリックして、現在のフローチャートを画像としてダウンロードします。</li>
+                <li><b>操作方法の表示：</b>画面右下の「manual」ボタンをクリックして、フローチャートの操作方法を表示します。</li>
+
+              </ul>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button onClick={handleClose}>閉じる</button>
+          </DialogActions>
+        </Dialog>
 
         <ChangePage />
       </Paper>

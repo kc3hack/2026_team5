@@ -1,5 +1,10 @@
 import { Paper, Typography, Box, Avatar } from "@mui/material";
 import ViewFC from "./ForViewFC";
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
 // 仮置きのためAIが生成したものを丸ごと使ってます
@@ -13,6 +18,9 @@ type PostProps = {
 };
 
 const TimelinePost = ({ username, title, description, date }: PostProps) => {
+  const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+
+
   return (
     <Paper 
       elevation={3} 
@@ -45,6 +53,12 @@ const TimelinePost = ({ username, title, description, date }: PostProps) => {
       <Box sx={{ mt: 2, height: '400px', bgcolor: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
         <ViewFC />
       </Box>
+      <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+      <Checkbox
+        {...label}
+        icon={<BookmarkBorderIcon />}
+        checkedIcon={<BookmarkIcon />}
+      />
     </Paper>
   );
 };

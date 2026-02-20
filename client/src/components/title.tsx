@@ -26,7 +26,7 @@ function Title():any {
         }}
        
       >
-        flowchart
+        エラベル
       </Typography>
     </>
   )

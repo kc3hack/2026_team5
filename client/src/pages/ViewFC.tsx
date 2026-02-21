@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import TimelinePost from "../components/TimeLinePost";
 import ChangePage from "../components/ChangePage";
 import { apiClient } from "../api/client";
-import PrintIcon from '@mui/icons-material/Print';
-import SaveIcon from '@mui/icons-material/Save';
 import MenuIcon from '@mui/icons-material/Menu';
 import CreateIcon from '@mui/icons-material/Create';
 import { useNavigate } from "react-router-dom";

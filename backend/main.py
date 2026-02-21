@@ -65,15 +65,18 @@ async def create_flowchart(payload: FlowChartCreate, user_id: str = Depends(veri
             avatar_url = profile_response.data[0].get("avatar_url")
 
         # Supabaseの 'flowcharts' テーブルにデータを挿入
-        # payload.dict() を使うことで、Pydanticモデルを辞書形式に変換してそのまま保存できます
-        response = supabase.table("flowcharts").insert({
+        insert_data = {
             "title": payload.title,
             "description": payload.description,
-            "flow_data": payload.flow_data.dict(),  # ここがJSONB型に格納されます
-            "user_id": user_id,
-            "username": username,
-            "avatar_url": avatar_url
-        }).execute()
+            "flow_data": payload.flow_data.dict()  # ここがJSONB型に格納されます
+        }
+        
+        if user_id:
+            insert_data["user_id"] = user_id
+            insert_data["username"] = username
+            insert_data["avatar_url"] = avatar_url
+
+        response = supabase.table("flowcharts").insert(insert_data).execute()
 
         return {
             "status": "success",

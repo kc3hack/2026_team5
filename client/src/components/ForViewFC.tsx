@@ -10,7 +10,7 @@ export default function ForViewFC({
 
   return (
     <>
- 
+
       <ReactFlow
         nodes={nodes}
         edges={edges}

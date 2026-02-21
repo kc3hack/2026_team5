@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'; 
+import { useCallback, useState } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -19,7 +19,7 @@ export default function FC({
 }: any) {
 
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  
+
   const [nodeName, setNodeName] = useState("");
 
   const onConnect = useCallback(
@@ -28,7 +28,7 @@ export default function FC({
   );
 
   const onNodeClick = (event: React.MouseEvent, node: any) => {
-    setSelectedNodeId(node.id); 
+    setSelectedNodeId(node.id);
     setNodeName(node.data.label);
     console.log(event);
   };
@@ -36,7 +36,7 @@ export default function FC({
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newName = e.target.value;
     console.log(e);
-    setNodeName(newName); 
+    setNodeName(newName);
 
     setNodes((nds: any[]) =>
       nds.map((node) => {
@@ -46,7 +46,7 @@ export default function FC({
             data: { ...node.data, label: newName },
           };
         }
-        return node; 
+        return node;
       })
     );
   };
@@ -68,12 +68,12 @@ export default function FC({
 
     const newNodeId = Math.random().toString();
     const isYes = label === 'Yes';
-    
+
     const newNode = {
       id: newNodeId,
-      position: { 
-        x: parentNode.position.x + (isYes ? -150 : 150), 
-        y: parentNode.position.y + 150 
+      position: {
+        x: parentNode.position.x + (isYes ? -150 : 150),
+        y: parentNode.position.y + 150
       },
       data: { label: '次の処理' },
     };
@@ -83,7 +83,7 @@ export default function FC({
       source: parentNode.id,
       target: newNodeId,
       label: label,
-      style: { stroke: isYes ? '#4caf50' : '#f44336' } 
+      style: { stroke: isYes ? '#4caf50' : '#f44336' }
     };
 
     setNodes((nds: any[]) => nds.concat(newNode));
@@ -95,48 +95,48 @@ export default function FC({
 
   return (
     <>
-    <div style={{ width: '75vw', height: '68vh' }}>
-      
-      <div style={{ padding: '10px', background: '#f0f0f0', display: 'flex', gap: '20px', alignItems: 'center', borderBottom: '1px solid #ccc' }}>
-        <button onClick={addNode} style={{ padding: '5px 10px', cursor: 'pointer' }}>
-          ➕ ノード追加
-        </button>
-        <button onClick={addYes} style={{ padding: '5px 10px', cursor: 'pointer' }}>
-          ➕ YESを追加
-        </button>
-        <button onClick={addNo} style={{ padding: '5px 10px', cursor: 'pointer' }}>
-          ➕ NOを追加
-        </button>
+      <div style={{ width: '75vw', height: '68vh' }}>
 
-        {selectedNodeId ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <span style={{ fontWeight: 'bold' }}>名前を編集:</span>
-            <input
-              type="text"
-              value={nodeName}
-              onChange={handleChangeName}
-              style={{ padding: '5px', width: '200px' }}
-            />
-          </div>
-        ) : (
-          <span style={{ color: '#888' }}>親ノードを選択してください</span>
-        )}
+        <div style={{ padding: '10px', background: '#f0f0f0', display: 'flex', gap: '20px', alignItems: 'center', borderBottom: '1px solid #ccc' }}>
+          <button onClick={addNode} style={{ padding: '5px 10px', cursor: 'pointer' }}>
+            ➕ ノード追加
+          </button>
+          <button onClick={addYes} style={{ padding: '5px 10px', cursor: 'pointer' }}>
+            ➕ YESを追加
+          </button>
+          <button onClick={addNo} style={{ padding: '5px 10px', cursor: 'pointer' }}>
+            ➕ NOを追加
+          </button>
+
+          {selectedNodeId ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+              <span style={{ fontWeight: 'bold' }}>名前を編集:</span>
+              <input
+                type="text"
+                value={nodeName}
+                onChange={handleChangeName}
+                style={{ padding: '5px', width: '200px' }}
+              />
+            </div>
+          ) : (
+            <span style={{ color: '#888' }}>親ノードを選択してください。操作方法がわからない場合は、右下の「+」をクリックしてください。</span>
+          )}
+        </div>
+
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeClick={onNodeClick}
+          fitView
+        >
+          <Controls />
+          <MiniMap />
+          <Background gap={12} size={1} />
+        </ReactFlow>
       </div>
-
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeClick={onNodeClick}
-        fitView
-      >
-        <Controls />
-        <MiniMap />
-        <Background gap={12} size={1} />
-      </ReactFlow>
-    </div>
     </>
   );
 }

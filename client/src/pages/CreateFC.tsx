@@ -96,17 +96,17 @@ function CreateFC(): any {
           fontSize: { xs: '1.5rem', md: '2rem' },
           color: 'rgba(255, 255, 255, 0.6)',
           mt: 0, mb: 1,
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
           textAlign: 'left',
-          transform: 'translateX(-55px)',
+          transform: { xs: 'none', md: 'translateX(-55px)' },
         }}
 
       >
         Create a Flowchart
       </Typography>
 
-      <Box sx={{ width: '65vw', mx: 'auto', mb: 2, display: 'flex', gap: 2 }}>
+      <Box sx={{ width: { xs: '90vw', md: '65vw' }, mx: 'auto', mb: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
         <TextField
           placeholder="Title"
           variant="standard"
@@ -123,7 +123,7 @@ function CreateFC(): any {
         />
       </Box>
 
-      <Paper elevation={3} sx={{ mb: -4, borderRadius: '16px', overflow: 'hidden' }}>
+      <Paper elevation={3} sx={{ mb: -4, borderRadius: { xs: 0, sm: '16px' }, overflow: 'hidden', width: { xs: '100vw', sm: '95vw', md: '75vw' }, mx: 'auto' }}>
 
         <FlowEditor
           key={resetKey}
@@ -139,7 +139,7 @@ function CreateFC(): any {
         <Backdrop open={open2} />
         <SpeedDial
           ariaLabel="SpeedDial tooltip example"
-          sx={{ position: 'absolute', bottom: 70, right: 80, fontSize: "40" }}
+          sx={{ position: 'fixed', bottom: { xs: 16, md: 70 }, right: { xs: 16, md: 80 } }}
           icon={<SpeedDialIcon />}
           onClose={handleClose2}
           onOpen={handleOpen2}

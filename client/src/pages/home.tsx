@@ -16,10 +16,10 @@ function Home(): any {
           fontWeight: 700,
           fontSize: 50,
           color: 'rgba(255, 255, 255, 0.6)',
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
-          textAlign: 'left',
-          transform: 'translateX(-55px)',
+          textAlign: { xs: 'center', md: 'left' },
+          transform: { xs: 'none', md: 'translateX(-55px)' },
         }}
         component={motion.div}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -43,10 +43,10 @@ function Home(): any {
           fontWeight: 700,
           fontSize: 50,
           color: 'rgba(255, 255, 255, 0.6)',
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
-          textAlign: 'left',
-          transform: 'translateX(-55px)',
+          textAlign: { xs: 'center', md: 'left' },
+          transform: { xs: 'none', md: 'translateX(-55px)' },
         }}
         component={motion.div}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -70,10 +70,10 @@ function Home(): any {
           fontWeight: 700,
           fontSize: 50,
           color: 'rgba(255, 255, 255, 0.6)',
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
-          textAlign: 'left',
-          transform: 'translateX(-55px)',
+          textAlign: { xs: 'center', md: 'left' },
+          transform: { xs: 'none', md: 'translateX(-55px)' },
         }}
         component={motion.div}
         initial={{ opacity: 0, scale: 0.9 }}

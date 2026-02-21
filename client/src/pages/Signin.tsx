@@ -12,7 +12,7 @@ function Signin(): any {
           fontSize: 50,
           color: 'rgba(255, 255, 255, 0.6)',
           mt: 0, mb: 1,
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
           textAlign: 'center',
 

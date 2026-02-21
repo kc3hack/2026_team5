@@ -49,7 +49,7 @@ function Timeline() {
           fontSize: { xs: '1.5rem', md: '2rem' },
           color: 'rgba(255, 255, 255, 0.6)',
           mt: 3, mb: 0, ml: 1,
-          width: '65vw',
+          width: { xs: '90vw', md: '65vw' },
           mx: 'auto',
           textAlign: 'center',
         }}

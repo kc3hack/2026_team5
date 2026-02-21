@@ -43,7 +43,7 @@ function ViewLargeFC() {
       <Box sx={{
         display: 'flex',
         alignItems: 'center',
-        width: '80vw',
+        width: { xs: '95vw', md: '80vw' },
         mx: 'auto',
         mt: 3,
         mb: 0,
@@ -64,7 +64,7 @@ function ViewLargeFC() {
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', py: 4 }}>
-        <Paper sx={{ height: '80vh', width: '80vw', borderRadius: '16px', overflow: 'hidden', boxShadow: 3, mb: 3 }}>
+        <Paper sx={{ height: { xs: '65vh', md: '80vh' }, width: { xs: '100vw', sm: '95vw', md: '80vw' }, borderRadius: { xs: 0, sm: '16px' }, overflow: 'hidden', boxShadow: 3, mb: 3 }}>
           <Box sx={{ height: '100%', width: '100%', bgcolor: '#ffffff' }}>
             <ReactFlow
               nodes={nodes}
@@ -84,10 +84,10 @@ function ViewLargeFC() {
         sx={{
           fontFamily: '"M PLUS Rounded 1c", sans-serif',
           fontWeight: "700",
-          fontSize: { xs: '1.5rem', md: '2rem' },
+          fontSize: { xs: '1.2rem', md: '2rem' },
           color: 'rgba(255, 255, 255)',
           mt: 3, mb: 0, ml: 1,
-          width: '70vw',
+          width: { xs: '90vw', md: '70vw' },
           mx: 'auto',
           textAlign: 'left',
         }}

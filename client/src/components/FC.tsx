@@ -8,6 +8,7 @@ import ReactFlow, {
   type Edge,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import { Box } from '@mui/material';
 
 export default function FC({
   nodes,
@@ -95,9 +96,17 @@ export default function FC({
 
   return (
     <>
-      <div style={{ width: '75vw', height: '68vh' }}>
+      <Box sx={{ width: '100%', height: { xs: '65vh', md: '68vh' }, display: 'flex', flexDirection: 'column' }}>
 
-        <div style={{ padding: '10px', background: '#f0f0f0', display: 'flex', gap: '20px', alignItems: 'center', borderBottom: '1px solid #ccc' }}>
+        <Box sx={{
+          padding: '10px',
+          background: '#f0f0f0',
+          display: 'flex',
+          gap: { xs: '10px', sm: '20px' },
+          alignItems: 'center',
+          borderBottom: '1px solid #ccc',
+          flexWrap: 'wrap'
+        }}>
           <button onClick={addNode} style={{ padding: '5px 10px', cursor: 'pointer' }}>
             ➕ ノード追加
           </button>
@@ -109,7 +118,7 @@ export default function FC({
           </button>
 
           {selectedNodeId ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
               <span style={{ fontWeight: 'bold' }}>名前を編集:</span>
               <input
                 type="text"
@@ -119,9 +128,9 @@ export default function FC({
               />
             </div>
           ) : (
-            <span style={{ color: '#888' }}>親ノードを選択してください。操作方法がわからない場合は、右下の「+」をクリックしてください。</span>
+            <span style={{ color: '#888', fontSize: '0.9rem' }}>親ノードを選択してください。(ヘルプ：右下の「+」)</span>
           )}
-        </div>
+        </Box>
 
         <ReactFlow
           nodes={nodes}
@@ -136,7 +145,7 @@ export default function FC({
           <MiniMap />
           <Background gap={12} size={1} />
         </ReactFlow>
-      </div>
+      </Box>
     </>
   );
 }

@@ -5,7 +5,7 @@ import Signin from './pages/Signin'
 import CreateFC from './pages/CreateFC'
 import ViewFC from './pages/ViewFC'
 import ViewLargeFC from './pages/ViewLargeFC'
-import Config from './pages/Config'
+import Config from './pages/Ranking'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home';

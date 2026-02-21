@@ -66,6 +66,16 @@ async def get_flowcharts():
         return response.data
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/api/flowcharts/ranking")
+async def get_flowchart_ranking():
+    try:
+        # likes が多い順（desc=True）に上位10件（limit）を取得する
+        response = supabase.table("flowcharts").select("*").order("likes", desc=True).limit(10).execute()
+        return response.data
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @app.get("/api/flowcharts/{flow_id}")
 async def get_flowchart_by_id(flow_id: int):
     try:

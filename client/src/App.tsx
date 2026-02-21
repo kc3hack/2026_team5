@@ -6,9 +6,11 @@ import CreateFC from './pages/CreateFC'
 import ViewFC from './pages/ViewFC'
 import ViewLargeFC from './pages/ViewLargeFC'
 import Config from './pages/Ranking'
+import Profile from './pages/Profile'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home';
+import { AuthProvider } from './contexts/AuthContext';
 
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
     }
   });
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Routes>
@@ -32,7 +34,7 @@ function App() {
             <Route path='/view' element={<ViewFC />} />
             <Route path='/view-details/:id' element={<ViewLargeFC />} />
             <Route path='/config' element={<Config />} />
-
+            <Route path='/profile' element={<Profile />} />
 
           </Routes>
         </BrowserRouter>
@@ -42,7 +44,7 @@ function App() {
 
 
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 

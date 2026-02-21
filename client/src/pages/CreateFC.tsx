@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNodesState, useEdgesState } from 'reactflow';
 import FlowEditor from "../components/FC";
 import ChangePage from "../components/ChangePage";
@@ -13,7 +13,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { apiClient } from '../api/client';
-import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import AuthForm from '../components/AuthForm';
 
 
 import { motion } from 'framer-motion';
@@ -24,12 +25,18 @@ function CreateFC(): any {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const [open2, setOpen2] = React.useState(false);
+  const [open2, setOpen2] = useState(false);
   const handleOpen2 = () => setOpen2(true);
   const handleClose2 = () => setOpen2(false);
 
+  const { user, session } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-
+  useEffect(() => {
+    if (user) {
+      setIsAuthModalOpen(false);
+    }
+  }, [user]);
 
   const [resetKey, setResetKey] = useState(0);
 
@@ -51,12 +58,18 @@ function CreateFC(): any {
   }
 
   const handleSave = async () => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
     if (!title) {
       alert("タイトルを入力してください");
       return;
     }
 
     try {
+      const token = session?.access_token;
       const payload = {
         title: title,
         description: description,
@@ -66,7 +79,11 @@ function CreateFC(): any {
         }
       };
 
-      const response = await apiClient.post('/api/flowcharts', payload);
+      const response = await apiClient.post('/api/flowcharts', payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (response.status === 200 || response.status === 201) {
         alert('フローチャートを投稿しました！');
@@ -216,6 +233,18 @@ function CreateFC(): any {
           </DialogActions>
         </Dialog>
 
+
+        <Dialog
+          open={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          PaperProps={{
+            sx: { bgcolor: '#0B1026', color: 'white', borderRadius: 3 }
+          }}
+        >
+          <DialogContent sx={{ p: 0 }}>
+            <AuthForm initialMode="login" isPopup={true} />
+          </DialogContent>
+        </Dialog>
 
         <ChangePage />
 

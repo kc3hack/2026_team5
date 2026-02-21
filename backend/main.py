@@ -1,6 +1,7 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 from supabase import create_client, Client
@@ -12,6 +13,8 @@ app = FastAPI()
 SUPABASE_URL = "https://hlbwewrytlpcrfwqfuci.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsYndld3J5dGxwY3Jmd3FmdWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1NTA2MjAsImV4cCI6MjA4NzEyNjYyMH0.mcooxvLg8IUaKxwrevTKdMPJjO7bfaemk5nZcIKLhZQ"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+security = HTTPBearer()
 
 # --- CORS設定 ---
 app.add_middleware(
@@ -37,17 +40,29 @@ class FlowChartCreate(BaseModel):
 class LikeAction(BaseModel):
     action: str  # "like" or "unlike"
 
+def verify_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    try:
+        response = supabase.auth.get_user(token)
+        if response and response.user:
+            return response.user.id
+        else:
+            raise HTTPException(status_code=401, detail="無効なトークンです。サインインしてください")
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="認証エラー: トークンが無効か期限切れです")
+
 # --- エンドポイント ---
 
 @app.post("/api/flowcharts")
-async def create_flowchart(payload: FlowChartCreate):
+async def create_flowchart(payload: FlowChartCreate, user_id: str = Depends(verify_user)):
     try:
         # Supabaseの 'flowcharts' テーブルにデータを挿入
         # payload.dict() を使うことで、Pydanticモデルを辞書形式に変換してそのまま保存できます
         response = supabase.table("flowcharts").insert({
             "title": payload.title,
             "description": payload.description,
-            "flow_data": payload.flow_data.dict()  # ここがJSONB型に格納されます
+            "flow_data": payload.flow_data.dict(),  # ここがJSONB型に格納されます
+            "user_id": user_id
         }).execute()
 
         return {

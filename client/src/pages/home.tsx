@@ -4,7 +4,10 @@ import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+
 function Home(): any {
+
+
   return (
     <>
       <Title />
@@ -63,6 +66,7 @@ function Home(): any {
           color: 'inherit'
         }}>-SignIn</Link >
       </Typography>
+
       <Typography
 
         sx={{

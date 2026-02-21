@@ -33,10 +33,12 @@ const TimelinePost = ({ id, username, title, description, date, flow_data }: Pos
         <Paper
           elevation={3}
           sx={{
-            p: 10,
+            p: { xs: 3, sm: 5, md: 10 },
             mb: 5,
             borderRadius: '20px',
-            bgcolor: 'rgba(255, 255, 255, 0.9)'
+            bgcolor: 'rgba(255, 255, 255, 0.9)',
+            width: '100%',
+            boxSizing: 'border-box'
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }} >

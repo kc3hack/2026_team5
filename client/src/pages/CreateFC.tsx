@@ -16,6 +16,8 @@ import { apiClient } from '../api/client';
 import React from 'react';
 
 
+import { motion } from 'framer-motion';
+
 function CreateFC(): any {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -137,39 +139,44 @@ function CreateFC(): any {
 
 
         <Backdrop open={open2} />
-        <SpeedDial
-          ariaLabel="SpeedDial tooltip example"
-          sx={{ position: 'fixed', bottom: { xs: 16, md: 70 }, right: { xs: 16, md: 80 } }}
-          icon={<SpeedDialIcon />}
-          onClose={handleClose2}
-          onOpen={handleOpen2}
-          open={open2}
+        <motion.div
+          drag
+          dragConstraints={{ left: -300, right: 0, top: -600, bottom: 0 }}
+          style={{ position: 'fixed', bottom: 100, right: 70, zIndex: 1050 }}
         >
+          <SpeedDial
+            ariaLabel="SpeedDial tooltip example"
+            icon={<SpeedDialIcon />}
+            onClose={handleClose2}
+            onOpen={handleOpen2}
+            open={open2}
+          >
 
 
 
-          <SpeedDialAction
-            icon={<UploadIcon color="info" />}
-            tooltipTitle="投稿"
-            onClick={() => { handleClose2(); handleSave(); }}
-          />
-          <SpeedDialAction
-            icon={<DeleteIcon color="error" />}
-            tooltipTitle="全て削除"
-            onClick={() => { handleClose2(); handleReset(); }}
-          />
-          <SpeedDialAction
-            icon={<HelpIcon color="success" />}
-            tooltipTitle="操作Help"
-            onClick={() => { handleClose2(); handleClickOpen(); }}
-          />
-          <SpeedDialAction
-            icon={<PhotoIcon color="action" />}
-            tooltipTitle="撮影(未実装)"
-            onClick={() => { handleClose2(); }}
-          />
+            <SpeedDialAction
+              icon={<UploadIcon color="info" />}
+              tooltipTitle="投稿"
+              onClick={() => { handleClose2(); handleSave(); }}
+            />
+            <SpeedDialAction
+              icon={<DeleteIcon color="error" />}
+              tooltipTitle="全て削除"
+              onClick={() => { handleClose2(); handleReset(); }}
+            />
+            <SpeedDialAction
+              icon={<HelpIcon color="success" />}
+              tooltipTitle="操作Help"
+              onClick={() => { handleClose2(); handleClickOpen(); }}
+            />
+            <SpeedDialAction
+              icon={<PhotoIcon color="action" />}
+              tooltipTitle="撮影(未実装)"
+              onClick={() => { handleClose2(); }}
+            />
 
-        </SpeedDial>
+          </SpeedDial>
+        </motion.div>
 
         <Dialog
           fullWidth

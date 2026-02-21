@@ -142,7 +142,6 @@ export default function FC({
           fitView
         >
           <Controls />
-          <MiniMap />
           <Background gap={12} size={1} />
         </ReactFlow>
       </Box>

@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 type PostProps = {
   id: number;
   username: string;
+  avatar_url?: string;
   title: string;
   description: string;
   date: string;
@@ -22,7 +23,7 @@ type PostProps = {
   likes?: number;
 };
 
-const TimelinePost = ({ id, username, title, description, date, flow_data, likes = 0 }: PostProps) => {
+const TimelinePost = ({ id, username, avatar_url, title, description, date, flow_data, likes = 0 }: PostProps) => {
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(false);
 
@@ -63,7 +64,11 @@ const TimelinePost = ({ id, username, title, description, date, flow_data, likes
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }} >
-            <Avatar sx={{ bgcolor: '#1976d2', mr: 2 }}>{username[0]}</Avatar>
+            {avatar_url ? (
+              <Avatar src={avatar_url} sx={{ mr: 2 }} />
+            ) : (
+              <Avatar sx={{ bgcolor: '#1976d2', mr: 2 }}>{username ? username[0] : 'U'}</Avatar>
+            )}
             <Box>
               <Typography variant="subtitle1" fontWeight="bold">
                 {username}

@@ -1,0 +1,4 @@
+-- profilesテーブルとflowchartsテーブルを結合しやすくするため、flowchartsテーブルにuser_idが外部キーとして正しく設定されているか確認する
+alter table public.flowcharts add column if not exists user_id uuid references auth.users;
+alter table public.flowcharts add column if not exists username text;
+alter table public.flowcharts add column if not exists avatar_url text;

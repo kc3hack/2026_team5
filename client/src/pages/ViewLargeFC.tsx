@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { apiClient } from '../api/client';
-import { Box, Typography, CircularProgress, Paper, } from '@mui/material';
+import { Box, Typography, CircularProgress, Paper, Avatar } from '@mui/material';
 import ChangePage from '../components/ChangePage';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import OptionButton from '../components/OptionButton';
@@ -94,10 +94,25 @@ function ViewLargeFC() {
           textAlign: 'left',
         }}
       >
-        Description: {flowData.description}<br />
-        Uploaded by: {flowData.username}<br />
-        Uploaded at: {flowData.date}
+        Description: {flowData.description}
       </Typography>
+      <Box sx={{ width: { xs: '90vw', md: '70vw' }, mx: 'auto', mt: 2, mb: 1, ml: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+          {flowData.avatar_url ? (
+            <Avatar src={flowData.avatar_url} sx={{ mr: 2, width: 32, height: 32 }} />
+          ) : (
+            <Avatar sx={{ bgcolor: '#1976d2', mr: 2, width: 32, height: 32 }}>
+              {flowData.username ? flowData.username[0] : 'U'}
+            </Avatar>
+          )}
+          <Typography variant="body1" sx={{ color: 'white' }}>
+            Uploaded by: {flowData.username || '名無しユーザー'}
+          </Typography>
+        </Box>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+          Uploaded at: {new Date(flowData.created_at).toLocaleString('ja-JP')}
+        </Typography>
+      </Box>
       <ChangePage />
     </>
   );

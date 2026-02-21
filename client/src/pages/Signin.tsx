@@ -1,9 +1,14 @@
 import { Typography, Box } from "@mui/material";
 import AuthForm from "../components/AuthForm";
+import { Link } from "react-router-dom";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 function Signin(): any {
   return (
     <Box sx={{ pt: 4, pb: 4 }}>
+      <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
+        <KeyboardBackspaceIcon sx={{ color: 'white', fontSize: '2.5rem', mr: 2 }} />
+      </Link>
       <Typography
         variant="h1"
         sx={{

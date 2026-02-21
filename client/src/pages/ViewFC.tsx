@@ -75,7 +75,8 @@ function Timeline() {
             <TimelinePost
               key={post.id}
               id={post.id}
-              username={"User"} // バックエンドにusernameをまだ保存していないため仮
+              username={post.username || "名無しユーザー"}
+              avatar_url={post.avatar_url}
               title={post.title}
               description={post.description || ""}
               date={new Date(post.created_at).toLocaleString('ja-JP')} // UTC時間を日本時間に変換

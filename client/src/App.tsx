@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home';
 import { AuthProvider } from './contexts/AuthContext';
+import Profiles from './pages/Profiles'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path='/view-details/:id' element={<ViewLargeFC />} />
             <Route path='/config' element={<Config />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/profiles' element={<Profiles />} />
 
           </Routes>
         </BrowserRouter>

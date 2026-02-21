@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function ChangePage() {
 
@@ -79,6 +80,7 @@ export default function ChangePage() {
                         <BottomNavigationAction label="フローチャート閲覧" icon={<SearchIcon />} component={Link} to="/view " />
                         <BottomNavigationAction label="フローチャート作成" icon={<CreateIcon />} component={Link} to="/create " />
                         <BottomNavigationAction label="ランキング" icon={<AutoGraphIcon />} component={Link} to="/config " />
+                        <BottomNavigationAction label="プロフィール" icon={<PersonIcon />} component={Link} to="/profiles " />
                     </BottomNavigation>
                 </Paper>
             </Box>

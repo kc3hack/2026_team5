@@ -17,7 +17,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173",
-                   "https://2026team5-livid.vercel.app/"],
+                   "https://2026team5-livid.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

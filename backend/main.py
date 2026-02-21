@@ -16,7 +16,8 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 # --- CORS設定 ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173",
+                    "https://quwon-000-2026team5-adep0ojzb-quwon-000s-projects.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

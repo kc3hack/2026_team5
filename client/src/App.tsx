@@ -30,7 +30,7 @@ function App() {
             <Route path='/signin' element={<Signin />} />
             <Route path='/create' element={<CreateFC />} />
             <Route path='/view' element={<ViewFC />} />
-            <Route path='/view-details/:id' element={<ViewLargeFC />} />
+            <Route path='/view-details' element={<ViewLargeFC />} />
             <Route path='/config' element={<Config />} />
 
 

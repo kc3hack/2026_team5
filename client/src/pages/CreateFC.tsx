@@ -72,6 +72,17 @@ function CreateFC(): any {
 
   return (
     <>
+      {/*  <motion.div
+        initial={{
+          opacity: 0.1, scale: 1
+        }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.4,
+          ease: "easeInOut",
+        }}>
+          */}
+
       <Typography
         variant="h1"
         sx={{
@@ -119,7 +130,7 @@ function CreateFC(): any {
           setEdges={setEdges}
         />
 
-        <Stack direction="row" spacing={2} sx={{ position: 'fixed', left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000 }}>
+        <Stack direction="row" spacing={2} sx={{ position: 'fixed', left: '51.2%', transform: 'translateX(-50%)', zIndex: 1000, }}>
           <Tooltip title="ボタンを押して投稿" placement="top">
             {/* ★追加3：onClick={handleSave} を追加してボタンと繋げた！ */}
             <Fab
@@ -179,7 +190,6 @@ function CreateFC(): any {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {/* ... (Dialogの中身は全く変えていません) ... */}
           <DialogTitle id="alert-dialog-title">
             {"操作方法"}
           </DialogTitle>
@@ -207,8 +217,12 @@ function CreateFC(): any {
           </DialogActions>
         </Dialog>
 
+
         <ChangePage />
+
       </Paper>
+
+
     </>
   )
 }

@@ -88,9 +88,10 @@ function CreateFC(): any {
       if (response.status === 200 || response.status === 201) {
         alert('フローチャートを投稿しました！');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('保存エラー:', error);
-      alert('バックエンドと通信できませんでした。サーバーが動いているか確認してください。');
+      const detailError = error.response?.data?.detail || error.message;
+      alert(`保存に失敗しました。詳細: ${detailError}`);
     }
   };
 

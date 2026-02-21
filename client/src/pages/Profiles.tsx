@@ -15,7 +15,7 @@ function Profiles() {
 
     useEffect(() => {
         if (!user) {
-            navigate('/login');
+            navigate('/logins');
             return;
         }
         getProfile();

@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/home';
 import { AuthProvider } from './contexts/AuthContext';
 import Profiles from './pages/Profiles'
+import Logins from './pages/logins'
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path='/config' element={<Config />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/profiles' element={<Profiles />} />
+            <Route path='/logins' element={<Logins />} />
 
           </Routes>
         </BrowserRouter>

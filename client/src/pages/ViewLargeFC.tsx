@@ -4,22 +4,40 @@ import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { apiClient } from '../api/client';
 import { Box, Typography, CircularProgress, Paper, Avatar } from '@mui/material';
+import { useAuth } from '../contexts/AuthContext';
 import ChangePage from '../components/ChangePage';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import OptionButton from '../components/OptionButton';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { motion } from "framer-motion";
 
 
 
 
 function ViewLargeFC() {
   const { id } = useParams();
+  const { user } = useAuth();
   const [flowData, setFlowData] = useState<any>(null);
+  const [likeCount, setLikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (user && id) {
+      const isLiked = localStorage.getItem(`liked_${user.id}_${id}`) === 'true';
+      setLiked(isLiked);
+    }
+  }, [user, id]);
 
   useEffect(() => {
     const fetchOne = async () => {
       try {
         const res = await apiClient.get(`/api/flowcharts/${id}`);
         setFlowData(res.data);
+        setLikeCount(res.data.likes || 0);
       } catch (err) {
         console.error(err);
         alert("データの取得に失敗しました");
@@ -27,6 +45,37 @@ function ViewLargeFC() {
     };
     fetchOne();
   }, [id]);
+
+  const handleLike = async () => {
+    try {
+      const action = liked ? 'unlike' : 'like';
+      setLiked(!liked);
+      setLikeCount(prev => liked ? Math.max(0, prev - 1) : prev + 1);
+
+      if (user) {
+        if (!liked) {
+          localStorage.setItem(`liked_${user.id}_${id}`, 'true');
+        } else {
+          localStorage.removeItem(`liked_${user.id}_${id}`);
+        }
+      }
+
+      await apiClient.post(`/api/flowcharts/${id}/like`, { action });
+    } catch (error) {
+      console.error("Failed to update like", error);
+      setLiked(liked);
+      setLikeCount(likeCount);
+      if (user) {
+        if (liked) {
+          localStorage.setItem(`liked_${user.id}_${id}`, 'true');
+        } else {
+          localStorage.removeItem(`liked_${user.id}_${id}`);
+        }
+      }
+    }
+  };
+
+  const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
 
   if (!flowData) {
     return (
@@ -79,6 +128,29 @@ function ViewLargeFC() {
               <Controls />
             </ReactFlow>
           </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 10 }}>
+            <motion.div
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 1.5 }}
+            >
+              <Checkbox
+                {...label}
+                icon={<FavoriteBorder />}
+                checkedIcon={<Favorite sx={{ color: 'red' }} />}
+                checked={liked}
+                onChange={handleLike}
+                sx={{ color: 'white' }}
+              />
+            </motion.div>
+
+            <Typography sx={{ color: 'white', ml: 1, mr: 2 }}>{likeCount}</Typography>
+            <Checkbox
+              {...label}
+              icon={<BookmarkBorderIcon />}
+              checkedIcon={<BookmarkIcon />}
+              sx={{ color: 'white' }}
+            />
+          </Box>
         </Paper>
       </Box>
 
@@ -113,6 +185,31 @@ function ViewLargeFC() {
           Uploaded at: {new Date(flowData.created_at).toLocaleString('ja-JP')}
         </Typography>
       </Box>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 10, justifyContent: 'center' }}>
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 1.5 }}
+        >
+          <Checkbox
+            {...label}
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: 'red' }} />}
+            checked={liked}
+            onChange={handleLike}
+            sx={{ color: 'white' }}
+          />
+        </motion.div>
+
+        <Typography sx={{ color: 'white', ml: 1, mr: 3 }}>{likeCount}</Typography>
+        <Checkbox
+          {...label}
+          icon={<BookmarkBorderIcon />}
+          checkedIcon={<BookmarkIcon />}
+          sx={{ color: 'white' }}
+        />
+      </Box>
+
       <ChangePage />
     </>
   );

@@ -1,6 +1,7 @@
 import { Paper, Typography, Box, Avatar, } from "@mui/material";
 import ViewFC from "./ForViewFC";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { apiClient } from '../api/client';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
@@ -24,8 +25,16 @@ type PostProps = {
 };
 
 const TimelinePost = ({ id, username, avatar_url, title, description, date, flow_data, likes = 0 }: PostProps) => {
+  const { user } = useAuth();
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (user && id) {
+      const isLiked = localStorage.getItem(`liked_${user.id}_${id}`) === 'true';
+      setLiked(isLiked);
+    }
+  }, [user, id]);
 
   const handleLike = async () => {
     try {
@@ -34,12 +43,27 @@ const TimelinePost = ({ id, username, avatar_url, title, description, date, flow
       setLiked(!liked);
       setLikeCount(prev => liked ? Math.max(0, prev - 1) : prev + 1);
 
+      if (user) {
+        if (!liked) {
+          localStorage.setItem(`liked_${user.id}_${id}`, 'true');
+        } else {
+          localStorage.removeItem(`liked_${user.id}_${id}`);
+        }
+      }
+
       await apiClient.post(`/api/flowcharts/${id}/like`, { action });
     } catch (error) {
       console.error("Failed to update like", error);
       // Revert if API fails
       setLiked(liked);
       setLikeCount(likeCount);
+      if (user) {
+        if (liked) {
+          localStorage.setItem(`liked_${user.id}_${id}`, 'true');
+        } else {
+          localStorage.removeItem(`liked_${user.id}_${id}`);
+        }
+      }
     }
   };
 

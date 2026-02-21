@@ -4,11 +4,11 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateIcon from '@mui/icons-material/Create';
-import SettingIcon from '@mui/icons-material/Settings';
 import { Link, useLocation } from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 export default function ChangePage() {
 
@@ -78,7 +78,7 @@ export default function ChangePage() {
 
                         <BottomNavigationAction label="フローチャート閲覧" icon={<SearchIcon />} component={Link} to="/view " />
                         <BottomNavigationAction label="フローチャート作成" icon={<CreateIcon />} component={Link} to="/create " />
-                        <BottomNavigationAction label="設定" icon={<SettingIcon />} component={Link} to="/config " />
+                        <BottomNavigationAction label="ランキング" icon={<AutoGraphIcon />} component={Link} to="/config " />
                     </BottomNavigation>
                 </Paper>
             </Box>

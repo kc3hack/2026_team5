@@ -34,6 +34,9 @@ class FlowChartCreate(BaseModel):
     description: Optional[str] = None
     flow_data: FlowData
 
+class LikeAction(BaseModel):
+    action: str  # "like" or "unlike"
+
 # --- エンドポイント ---
 
 @app.post("/api/flowcharts")
@@ -75,5 +78,36 @@ async def get_flowchart_by_id(flow_id: int):
             
         # リストの0番目（1件だけなので）を返す
         return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/flowcharts/{flow_id}/like")
+async def toggle_like(flow_id: int, payload: LikeAction):
+    try:
+        # 現在のいいね数を取得
+        response = supabase.table("flowcharts").select("likes").eq("id", flow_id).execute()
+        
+        if not response.data:
+            raise HTTPException(status_code=404, detail="Flowchart not found")
+            
+        current_likes = response.data[0].get("likes", 0)
+        
+        if current_likes is None:
+            current_likes = 0
+            
+        if payload.action == "like":
+            new_likes = current_likes + 1
+        elif payload.action == "unlike":
+            new_likes = max(0, current_likes - 1)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid action")
+            
+        # いいね数を更新
+        update_response = supabase.table("flowcharts").update({"likes": new_likes}).eq("id", flow_id).execute()
+        
+        return {
+            "status": "success",
+            "likes": new_likes
+        }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

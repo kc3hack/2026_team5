@@ -141,7 +141,7 @@ function CreateFC(): any {
         <Backdrop open={open2} />
         <motion.div
           drag
-          dragConstraints={{ left: -300, right: 0, top: -600, bottom: 0 }}
+          dragConstraints={{ left: 0, right: 0, top: -600, bottom: 0 }}
           style={{ position: 'fixed', bottom: 100, right: 70, zIndex: 1050 }}
         >
           <SpeedDial
@@ -150,6 +150,15 @@ function CreateFC(): any {
             onClose={handleClose2}
             onOpen={handleOpen2}
             open={open2}
+            sx={{
+              '& .MuiFab-primary': {
+                backgroundColor: 'white',
+                color: 'black',
+                '&:hover': {
+                  backgroundColor: '#e0e0e0',
+                }
+              },
+            }}
           >
 
 

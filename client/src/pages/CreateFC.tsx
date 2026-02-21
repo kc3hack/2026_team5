@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; //koumori-Kが追加
 import { useNodesState, useEdgesState } from 'reactflow';
 import FlowEditor from "../components/FC";
 import Tooltip from '@mui/material/Tooltip';
@@ -17,6 +17,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Stack from '@mui/material/Stack';
 import { motion } from 'framer-motion';
 import { apiClient } from '../api/client';
+import {useAuth } from './contexts/AuthContext'; //koumori-Kが追加
+import AuthForm from '../components/AuthForm'; //koumori-Kが追加
 
 function CreateFC(): any {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -25,6 +27,16 @@ function CreateFC(): any {
   const [description, setDescription] = useState("");
 
   const [resetKey, setResetKey] = useState(0);
+
+  const { user, session } = useAuth(); //koumori-K
+
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false); //koumori-K
+
+  useEffect(() => {
+    if(user){
+      setIsAuthModalOpen(false);
+    }
+  },[user]);//koumori-K
 
   const handleReset = () => {
     setResetKey(prev => prev + 1);
@@ -44,12 +56,19 @@ function CreateFC(): any {
   }
 
   const handleSave = async () => {
+    // 【関門1】ログインしていなければポップアップを開き、ここで処理を止める
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }//koumori-K
+
     if (!title) {
       alert("タイトルを入力してください！");
       return;
     }
 
     try {
+      const token = session?.access_token;//koumori-K
       const payload = {
         title: title,
         description: description,
@@ -59,7 +78,11 @@ function CreateFC(): any {
         }
       };
 
-      const response = await apiClient.post('/api/flowcharts', payload);
+      const response = await apiClient.post('/api/flowcharts', payload, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (response.status === 200 || response.status === 201) {
         alert('フローチャートを保存しました！');
@@ -215,6 +238,19 @@ function CreateFC(): any {
           <DialogActions>
             <button onClick={handleClose}>閉じる</button>
           </DialogActions>
+        </Dialog>
+        <Dialog 
+          open={isAuthModalOpen} 
+          onClose={() => setIsAuthModalOpen(false)}
+          PaperProps={{
+            // アプリのダークテーマ（#0B1026）に背景色を合わせる調整
+            sx: { bgcolor: '#0B1026', color: 'white', borderRadius: 3 } 
+          }}
+        >
+          <DialogContent sx={{ p: 0 }}>
+            {/* あの万能部品を「ポップアップモード」で呼び出す */}
+            <AuthForm initialMode="login" isPopup={true} />
+          </DialogContent>
         </Dialog>
 
 

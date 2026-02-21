@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography, Box } from "@mui/material";
+import AuthForm from "../components/AuthForm";
 
 function Login():any {
   return (
-    <>
+    <Box sx={{ pt: 4, pb: 4 }}>
        <Typography
         variant="h1"
         sx={{
@@ -11,7 +11,7 @@ function Login():any {
           fontWeight: 700, 
           fontSize: { xs: '1.5rem', md: '2rem' },
           color: 'rgba(255, 255, 255, 0.6)',
-          mt: 0, mb: 1, 
+          mt: 0, mb: 4, 
           width: '65vw',
           mx: 'auto',
           textAlign: 'center',
@@ -19,13 +19,12 @@ function Login():any {
         }}
        
       >
-        login(製作中)
+        ログイン
       </Typography>
-    <Link to="/signin">Go to Signin</Link>
-    <Link to="/create">Go to Create</Link>
-    
-    </>
-  )
+      {/*ログイン専用モードとして部品を呼び出す*/}
+      <AuthForm initialMode="login"isPopup={false} />
+      </Box>   
+  );
 }
 
 export default Login;

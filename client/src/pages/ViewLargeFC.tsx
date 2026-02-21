@@ -6,6 +6,7 @@ import { apiClient } from '../api/client';
 import { Box, Typography, CircularProgress, Paper, } from '@mui/material';
 import ChangePage from '../components/ChangePage';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import OptionButton from '../components/OptionButton';
 
 
 
@@ -40,6 +41,7 @@ function ViewLargeFC() {
 
   return (
     <>
+      <OptionButton />
       <Box sx={{
         display: 'flex',
         alignItems: 'center',

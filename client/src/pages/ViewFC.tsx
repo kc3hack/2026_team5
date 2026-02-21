@@ -1,20 +1,15 @@
-import { Box, Typography, CircularProgress, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { Box, Typography, CircularProgress, } from "@mui/material";
 import { useEffect, useState } from "react";
 import TimelinePost from "../components/TimeLinePost";
 import ChangePage from "../components/ChangePage";
 import { apiClient } from "../api/client";
-import MenuIcon from '@mui/icons-material/Menu';
-import CreateIcon from '@mui/icons-material/Create';
-import { useNavigate } from "react-router-dom";
-import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
-import CachedIcon from '@mui/icons-material/Cached';
+import OptionButton from "../components/OptionButton";
 
 
 
 
 
 function Timeline() {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,11 +29,7 @@ function Timeline() {
     fetchPosts();
   }, []);
 
-  const actions = [
-    { icon: <CreateIcon sx={{ color: 'blue' }} />, name: 'フローチャートを作る', onClick: () => navigate('/create') },
-    { icon: <CachedIcon sx={{ color: 'green' }} />, name: 'ページの再読み込み', onClick: () => window.location.reload() },
-    { icon: <VerticalAlignTopIcon sx={{ color: 'red' }} />, name: 'ページの先頭へ', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-  ];
+
 
   return (
     <>
@@ -52,6 +43,9 @@ function Timeline() {
           ease: "easeInOut",
         }}>
           */}
+
+      <OptionButton />
+
 
       <Typography
 
@@ -96,36 +90,10 @@ function Timeline() {
 
 
 
-      <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        sx={{
-          position: 'fixed',
-          bottom: 100, right: 70,
-          '& .MuiFab-primary': {
-            backgroundColor: 'white',
-            color: 'black',
-            '&:hover': {
-              backgroundColor: '#e0e0e0',
-            }
-          },
-        }}
-        icon={<SpeedDialIcon openIcon={<MenuIcon />} />}
-      >
 
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            onClick={action.onClick}
-            slotProps={{
-              tooltip: {
-                title: action.name,
-              },
-            }}
-          />
-        ))}
 
-      </SpeedDial>
+
+
 
 
     </>

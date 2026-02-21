@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ChangePage from "../components/ChangePage";
 import { apiClient } from "../api/client";
 import TimelinePost from "../components/TimeLinePost";
+import OptionButton from "../components/OptionButton";
 
 function Config(): any {
   const [rankingPosts, setRankingPosts] = useState<any[]>([]);
@@ -24,6 +25,7 @@ function Config(): any {
 
   return (
     <>
+      <OptionButton />
       <Typography
         sx={{
           fontFamily: '"M PLUS Rounded 1c", sans-serif',
@@ -37,7 +39,7 @@ function Config(): any {
         }}
 
       >
-        Ranking👑
+        Ranking
       </Typography>
 
       <Box sx={{ width: '100%', maxWidth: '800px', mx: 'auto', p: 2 }}>
@@ -49,7 +51,7 @@ function Config(): any {
           rankingPosts.map((post, index) => (
             <Box key={post.id} sx={{ mb: 4 }}>
               <Typography variant="h4" sx={{ color: '#fff', mb: 1, fontWeight: 'bold' }}>
-                第 {index + 1} 位
+                第 {index + 1} 位 いいね数:{post.likes}
               </Typography>
 
               <TimelinePost

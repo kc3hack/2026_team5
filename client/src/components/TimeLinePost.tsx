@@ -8,6 +8,7 @@ import Favorite from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
 
 
 
@@ -87,14 +88,20 @@ const TimelinePost = ({ id, username, title, description, date, flow_data, likes
         </Paper>
       </Link>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 10 }}>
-        <Checkbox
-          {...label}
-          icon={<FavoriteBorder />}
-          checkedIcon={<Favorite />}
-          checked={liked}
-          onChange={handleLike}
-          sx={{ color: 'white' }}
-        />
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 1.5 }}
+        >
+          <Checkbox
+            {...label}
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: 'red' }} />}
+            checked={liked}
+            onChange={handleLike}
+            sx={{ color: 'white' }}
+          />
+        </motion.div>
+
         <Typography sx={{ color: 'white', ml: 1, mr: 2 }}>{likeCount}</Typography>
         <Checkbox
           {...label}

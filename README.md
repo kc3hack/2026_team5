@@ -1,12 +1,11 @@
 # プロダクト名 
-<!-- プロダクト名に変更してください -->
-
 ![プロダクト名](https://kc3.me/cms/wp-content/uploads/2026/02/444e7120d5cdd74aa75f7a94bf8821a5-scaled.png)
-<!-- プロダクト名・イメージ画像を差し変えてください -->
+エラベル(選ぶ+ラベル)
+
 
 
 ## チーム名
-チーム○ XXXX
+チーム5 
 <!-- チームIDとチーム名を入力してください -->
 
 
@@ -35,8 +34,20 @@
 ### その他
 
 ## 使用技術
+### Frontend
+- React
+- TypeScript
+- Vite
+- Material-UI (MUI)
+- React Flow
+- React Router
+- Framer Motion
+### Backend
+- Python
+- FastAPI
+### Database & Infrastructure
+- Supabase
 
-<!-- 使用技術を入力してください -->
 
 
 <!--

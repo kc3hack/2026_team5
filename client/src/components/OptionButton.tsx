@@ -4,6 +4,7 @@ import VerticalAlignTopIcon from '@mui/icons-material/VerticalAlignTop';
 import CachedIcon from '@mui/icons-material/Cached';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 export default function OptionButton() {
@@ -11,7 +12,9 @@ export default function OptionButton() {
     const actions = [
         { icon: <CreateIcon sx={{ color: 'blue' }} />, name: 'フローチャートを作る', onClick: () => navigate('/create') },
         { icon: <CachedIcon sx={{ color: 'green' }} />, name: 'ページの再読み込み', onClick: () => window.location.reload() },
+        { icon: <LogoutIcon sx={{ color: 'black' }} />, name: 'タイトルへ戻る', onClick: () => navigate('/') },
         { icon: <VerticalAlignTopIcon sx={{ color: 'red' }} />, name: 'ページの先頭へ', onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+
     ];
 
     return (

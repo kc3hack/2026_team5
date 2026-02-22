@@ -1,5 +1,5 @@
 # エラベル(Elabel)
-「選べる」+ラベル
+道を選ぶサポートをする新感覚フローチャート共有SNS
 ![プロダクト名](https://kc3.me/cms/wp-content/uploads/2026/02/444e7120d5cdd74aa75f7a94bf8821a5-scaled.png)
 
 

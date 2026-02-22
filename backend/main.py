@@ -20,7 +20,7 @@ security = HTTPBearer()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173",
-                   "https://adorable-frangipane-3e810e.netlify.app"
+                   "https://adorable-frangipane-3e810e.netlify.app",
                    "https://2026-team5-sepia.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],

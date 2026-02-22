@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/92f13d11-60a8-4b74-8ecc-0fac98cc0b3a
 # エラベル(Elabel)
 道を選ぶサポートをする新感覚フローチャート共有SNS
 ![elabel](client/public/image%20copy.png)
@@ -6,6 +8,8 @@
 
 ## チーム名
 チームSA(チーム5)
+
+
 <!-- チームIDとチーム名を入力してください -->
 
 
@@ -33,7 +37,11 @@ SNS形式にすることで、自分の意見を発信したり、多くの人�
 サインインの後ログインをすると、フローチャートを作成・投稿できるようになります。
 
 ### デモ動画
-<video src="client/public/FC.mov" controls></video>
+
+https://github.com/user-attachments/assets/cbcfeecc-4cd7-4885-bd90-f18fa96232a7
+
+
+
 <!-- 開発したプロダクトの操作説明について入力してください。また、操作説明デモ動画があれば、埋め込みやリンクを記載してください -->
 
 
